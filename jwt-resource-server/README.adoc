@@ -1,0 +1,68 @@
+= Spring Security OAuth2 + JWT Resource Server
+
+This is a simple example of using Spring Security OAuth2 and Spring MVC
+to provide an API that is secured by an OAuth2 resource server that accepts
+JWT access tokens.
+
+== Building and running
+
+You can run the application directly from Maven using the Spring Boot
+Maven plugin:
+
+[source,sh]
+----
+$ ./mvnw spring-boot:run
+----
+
+Or you can build the application with Maven and then run the resulting
+JAR file:
+
+[source,sh]
+----
+$ ./mvnw package
+$ java -jar target/jwt-resource-server-0.0.1-SNAPSHOT.jar
+----
+
+Or you may import the project into your IDE of choice and run it from there.
+
+Once the application is running, the API and resource server will be listening
+for requests on port 8080.
+
+== Consuming the API
+
+The API provided by this application has two endpoints:
+
+ * `/unsecured` - An unsecured endpoint that requires no access token.
+ * `/secured` - A secured endpoint that can only be access with a valid JWT access
+   token in the request.
+   
+Using `curl`, you should be able to consume the `/unsecured` endpoint without any 
+restriction:
+
+[source,sh]
+----
+$ curl localhost:8080/unsecured
+This is an unsecured resource
+----
+
+If, however, you attempt to consume the `/secured` endpoint without providing a
+valid access token, you will receive an HTTP 401 (Unauthorized) response:
+
+[source,sh]
+----
+$ curl localhost:8080/secured
+{"error":"unauthorized","error_description":"Full authentication is required to access this resource"}
+----
+
+In order to successfully access the `/secured` endpoint, you'll need to provide
+a valid access token in the `Authorization` header of the request. Assuming that you
+have followed the instructions in the jwt-auth-server project's README to obtain
+an access token and assign it to the `ACCESS_TOKEN` environment variable, you can make
+a successful request with `curl` like this:
+
+[source,sh]
+----
+$ curl localhost:8080/secured -H"Authorization: Bearer $ACCESS_TOKEN"
+This is a SECURED resource. Authentication: habuma; Authorities: [ROLE_ADMIN, ROLE_USER]
+----
+

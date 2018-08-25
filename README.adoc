@@ -1,0 +1,26 @@
+= Spring Security OAuth2 + JWT Examples
+
+This is a simple example of using Spring Security OAuth2 to provide
+an OAuth2 authorization server that issues JWT tokens as well as an
+API secured by an OAuth2 resource server that accepts those tokens.
+
+There are two Spring Boot applications contained in this repository:
+
+ * `jwt-auth-server` : The authorization server.
+ * `jwt-resource-server` : The API secured with an OAuth2 resource server.
+
+See each application's individual README.adoc files for details on
+building and running them.
+
+[NOTE]
+====
+These projects are based on Spring Security for OAuth2 (S2OAuth), a
+separate extension for Spring Security. The roadmap for Spring
+Security has it eventually absorbing most/all of S2OAuth.
+
+Resource server support is slated for inclusion in Spring Security
+5.1. Authorization server support will follow in Spring Security
+5.2. As those versions of Spring Security become fully available,
+this example should (and will) be updated to showcase the new way
+of creating OAuth2 authorization and resource servers.
+====
