@@ -22,11 +22,6 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
 				.anyRequest().permitAll();
 		//@formatter:on
 	}
-
-	@Override
-	public void configure(ResourceServerSecurityConfigurer config) {
-		config.resourceId("people").stateless(false);
-	}
 	
     @Primary
     @Bean
