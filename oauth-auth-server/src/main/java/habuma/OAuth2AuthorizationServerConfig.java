@@ -45,7 +45,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 			.inMemory()
 				.withClient("myclient")
 				.secret("secret")
-				.authorizedGrantTypes("authorization_code", "implicit", "password", "client_credentials")
+				.authorizedGrantTypes("authorization_code", "implicit", "password", "client_credentials", "refresh_token")
 				.scopes("read")
 				.redirectUris("http://localhost:9191/x")
 				.accessTokenValiditySeconds(86400); // 24 hours
