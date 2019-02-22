@@ -1,0 +1,66 @@
+= Spring Security OAuth2 Authorization Server
+
+This is a simple example of using Spring Security OAuth2 to provide an
+authorization server that produces opaque access tokens.
+
+== Building and running
+
+You can run the application directly from Maven using the Spring Boot
+Maven plugin:
+
+[source,sh]
+----
+$ ./mvnw spring-boot:run
+----
+
+Or you can build the application with Maven and then run the resulting
+JAR file:
+
+[source,sh]
+----
+$ ./mvnw package
+$ java -jar target/oauth-auth-server-0.0.1-SNAPSHOT.jar
+----
+
+Or you may import the project into your IDE of choice and run it from there.
+
+Once the application is running, the authorization server will be listening
+for requests on port 9999.
+
+== Obtaining an access token
+
+This authorization server uses in-memory stores for both users and clients.
+In-memory stores were chosen to simplify the example. In a real production-ready
+scenario, you should use a different store (JDBC-based, for example).
+
+There are two users:
+
+ * **Username**: habuma; **Password**: password
+ * **Username**: izzy; **Password**: password
+
+There is only one client:
+
+ * **Client ID**: myclient; **Client Secret**: secret
+
+Using the `curl` command line tool, you can request a token as follows
+(for the "habuma" user):
+
+[source,sh]
+----
+$ curl http://localhost:9999/oauth/token \
+    -d"grant_type=password&username=habuma&password=password" \
+    -H"Content-type:application/x-www-form-urlencoded; charset=utf-8" \
+    -u myclient:secret
+----
+
+If you have the `jq` command line tool (https://stedolan.github.io/jq/) installed,
+it may be useful to extract the token value into an environment variable for later
+use:
+
+[source,sh]
+----
+$ export ACCESS_TOKEN=`curl http://localhost:9999/oauth/token \
+    -d"grant_type=password&username=habuma&password=password" \
+    -H"Content-type:application/x-www-form-urlencoded; charset=utf-8" \
+    -u myclient:secret --silent | jq -r ".access_token"`
+----

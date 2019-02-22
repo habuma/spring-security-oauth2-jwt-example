@@ -5,12 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.habuma</groupId>
-	<artifactId>basic-resource-server</artifactId>
+	<artifactId>oauth-authorization-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>basic-resource-server</name>
-	<description>Spring Security HTTP Basic Resource Server</description>
+	<name>oauth-auth-server</name>
+	<description>Spring Security OAuth2 Authorization Server</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -23,10 +23,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<spring-security-oauth2.version>2.3.5.RELEASE</spring-security-oauth2.version>
 	</properties>
 
 	<dependencies>
-		<!-- Spring MVC -->
+		<!-- Spring MVC (to support the /oauth/token endpoint) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -36,6 +37,13 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<!-- Spring Security OAuth2 -->
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+			<version>${spring-security-oauth2.version}</version>
 		</dependency>
 
 		<!-- Actuator; optional, but useful for auditing security -->
